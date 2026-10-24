@@ -18,4 +18,6 @@ public class Technician
     [Required]
     [MaxLength(PhoneNumberMaxLength)]
     public string PhoneNumber { get; set; } = null!;
+
+    public ICollection<ServiceRequest> ServiceRequests { get; set; } = new HashSet<ServiceRequest>();
 }

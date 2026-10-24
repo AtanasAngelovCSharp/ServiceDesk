@@ -29,4 +29,6 @@ public class Device
 
     [ForeignKey(nameof(CustomerId))]
     public Customer Customer { get; set; } = null!;
+
+    public ICollection<ServiceRequest> ServiceRequests { get; set; } = new HashSet<ServiceRequest>();
 }
