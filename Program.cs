@@ -14,6 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IServiceRequestService, ServiceRequestService>();
+builder.Services.AddScoped<ITechnicianService, TechnicianService>();
 
 builder.Services.AddControllersWithViews();
 
