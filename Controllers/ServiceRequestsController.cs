@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ServiceDesk.Services.Interfaces;
+using ServiceDesk.ViewModels.ServiceRequests;
 
 namespace ServiceDesk.Controllers;
 
@@ -29,5 +30,29 @@ public class ServiceRequestsController : Controller
         {
             return View(request);
         }
+    }
+
+    public async Task<IActionResult> Create()
+    {
+        var model = new ServiceRequestFormViewModel();
+        model.Devices = await serviceRequestService.GetDevicesAsync();
+        model.Technicians = await serviceRequestService.GetTechniciansAsync();
+
+        return View(model);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(ServiceRequestFormViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            model.Devices = await serviceRequestService.GetDevicesAsync();
+            model.Technicians = await serviceRequestService.GetTechniciansAsync();
+            return View(model);
+        }
+
+        await serviceRequestService.CreateAsync(model);
+        return RedirectToAction(nameof(Index));
     }
 }

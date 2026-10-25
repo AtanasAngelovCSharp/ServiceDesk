@@ -12,8 +12,10 @@
         </tr>
     </thead>
     <tbody>
+        <a asp-action="Create" class="btn btn-primary mb-3">Нова заявка</a>
         @foreach (var request in Model)
         {
+            
             <tr>
                 <td>@request.Title</td>
                 <td>@request.Device</td>

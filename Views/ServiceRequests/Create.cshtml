@@ -1,0 +1,57 @@
+@model ServiceDesk.ViewModels.ServiceRequests.ServiceRequestFormViewModel
+@{
+    ViewData["Title"] = "Нова заявка";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label">Заглавие</label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DeviceId" class="form-label">Устройство</label>
+        <select asp-for="DeviceId" asp-items="Model.Devices" class="form-select">
+            <option value="">-- Изберете устройство --</option>
+        </select>
+        <span asp-validation-for="DeviceId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ProblemDescription" class="form-label">Описание на проблема</label>
+        <textarea asp-for="ProblemDescription" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="ProblemDescription" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TechnicianId" class="form-label">Техник</label>
+        <select asp-for="TechnicianId" asp-items="Model.Technicians" class="form-select">
+            <option value="">-- Неразпределена --</option>
+        </select>
+        <span asp-validation-for="TechnicianId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Status" class="form-label">Статус</label>
+        <select asp-for="Status" asp-items="Html.GetEnumSelectList<ServiceDesk.Data.Models.Enums.RequestStatus>()"
+                class="form-select">
+        </select>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="EstimatedPrice" class="form-label">Цена</label>
+        <input asp-for="EstimatedPrice" class="form-control" />
+        <span asp-validation-for="EstimatedPrice" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Създай</button>
+    <a asp-action="Index" class="btn btn-secondary">Отказ</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -25,6 +25,7 @@ public class ServiceRequestFormViewModel
     public decimal EstimatedPrice { get; set; }
 
     [Range(1, int.MaxValue, ErrorMessage = "Изберете устройство.")]
+    [Required(ErrorMessage = "Изберете устройство.")]
     public int DeviceId { get; set; }
 
     public int? TechnicianId { get; set; }

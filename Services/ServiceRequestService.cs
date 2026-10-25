@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using ServiceDesk.Data;
 using ServiceDesk.Services.Interfaces;
 using ServiceDesk.ViewModels.ServiceRequests;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using ServiceDesk.Data.Models;
+using ServiceDesk.Data.Models.Enums;
 
 namespace ServiceDesk.Services;
 
@@ -50,5 +53,49 @@ public class ServiceRequestService : IServiceRequestService
                 TechnicianName = sr.Technician == null ? null : sr.Technician.FullName
             })
             .FirstOrDefaultAsync();
+    }
+
+    public async Task<IEnumerable<SelectListItem>> GetTechniciansAsync()
+    {
+        return await context.Technicians
+            .AsNoTracking()
+            .OrderBy(t => t.FullName)
+            .Select(t => new SelectListItem
+            {
+                Value = t.Id.ToString(),
+                Text = t.FullName
+            })
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<SelectListItem>> GetDevicesAsync()
+    {
+        return await context.Devices
+            .AsNoTracking()
+            .OrderBy(d => d.Brand)
+            .Select(d => new SelectListItem
+            {
+                Value = d.Id.ToString(),
+                Text = d.Brand + " " + d.Model + " (" + d.Customer.FullName + ")"
+            })
+            .ToListAsync();
+    }
+
+    public async Task CreateAsync(ServiceRequestFormViewModel model)
+    {
+        var request = new ServiceRequest
+        {
+            Title = model.Title,
+            ProblemDescription = model.ProblemDescription,
+            CreatedOn = DateTime.Now,
+            Status = model.Status,
+            EstimatedPrice = model.EstimatedPrice,
+            DeviceId = model.DeviceId,
+            TechnicianId = model.TechnicianId,
+            CompletedOn = model.Status == RequestStatus.Completed ? DateTime.Now : null
+        };
+
+        await context.ServiceRequests.AddAsync(request);
+        await context.SaveChangesAsync();
     }
 }
