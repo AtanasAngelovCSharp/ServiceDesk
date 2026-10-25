@@ -12,4 +12,5 @@ public interface IServiceRequestService
     Task CreateAsync(ServiceRequestFormViewModel model);
     Task<ServiceRequestFormViewModel?> GetForEditAsync(int id);
     Task<bool> EditAsync(int id, ServiceRequestFormViewModel model);
+    Task<bool> DeleteAsync(int id);
 }

@@ -88,4 +88,28 @@ public class ServiceRequestsController : Controller
 
         return RedirectToAction(nameof(Details), new { id });
     }
+
+    public async Task<IActionResult> Delete(int id)
+    {
+        var request = await serviceRequestService.GetByIdAsync(id);
+        if (request == null)
+        {
+            return NotFound();
+        }
+        return View(request);
+    }
+
+    [HttpPost]
+    [ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        bool success = await serviceRequestService.DeleteAsync(id);
+        if (!success)
+        {
+            return NotFound();
+        }
+
+        return RedirectToAction(nameof(Index));
+    }
 }

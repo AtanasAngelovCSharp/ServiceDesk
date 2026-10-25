@@ -1,0 +1,42 @@
+@model ServiceDesk.ViewModels.ServiceRequests.ServiceRequestDetailsViewModel
+
+@{
+    ViewData["Title"] = "Изтриване на заявка";
+}
+
+<h1>@ViewData["Title"]</h1>
+<h4>@Model.Title</h4>
+
+<div class="alert alert-danger">Сигурни ли сте, че искате да изтриете тази заявка?</div>
+
+<dl class="row">
+    <dt class="col-sm-3">Описание</dt>
+    <dd class="col-sm-9">@Model.ProblemDescription</dd>
+
+    <dt class="col-sm-3">Статус</dt>
+    <dd class="col-sm-9">@Model.Status</dd>
+
+    <dt class="col-sm-3">Техник</dt>
+    <dd class="col-sm-9">@(Model.TechnicianName ?? "Неразпределена")</dd>
+
+    <dt class="col-sm-3">Устройство</dt>
+    <dd class="col-sm-9">@Model.Device</dd>
+
+    <dt class="col-sm-3">Клиент</dt>
+    <dd class="col-sm-9">@Model.CustomerName</dd>
+
+    <dt class="col-sm-3">Създадена</dt>
+    <dd class="col-sm-9">@Model.CreatedOn</dd>
+
+    <dt class="col-sm-3">Завършена</dt>
+    <dd class="col-sm-9">@(Model.CompletedOn ?? "—")</dd>
+
+    <dt class="col-sm-3">Цена</dt>
+    <dd class="col-sm-9">@Model.EstimatedPrice.ToString("F2") €</dd>
+</dl>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Изтрий</button>
+    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Отказ</a>
+</form>

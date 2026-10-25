@@ -142,4 +142,17 @@ public class ServiceRequestService : IServiceRequestService
         await context.SaveChangesAsync();
         return true;
     }
+
+    public async Task<bool> DeleteAsync(int id)
+    {
+        var request = await context.ServiceRequests.FindAsync(id);
+        if (request == null)
+        {
+            return false;
+        }
+
+        context.ServiceRequests.Remove(request);
+        await context.SaveChangesAsync();
+        return true;
+    }
 }
