@@ -1,8 +1,45 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model ServiceDesk.ViewModels.Home.HomeIndexViewModel
+@{
+    ViewData["Title"] = "Начало";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1>ServiceDesk</h1>
+<p class="lead">Система за управление на сервизни заявки за принтери и компютри.</p>
+
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h5 class="card-title">Нови</h5>
+                <p class="display-6 mb-0">@Model.NewCount</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card bg-warning text-dark">
+            <div class="card-body">
+                <h5 class="card-title">В процес</h5>
+                <p class="display-6 mb-0">@Model.InProgressCount</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card bg-info text-dark">
+            <div class="card-body">
+                <h5 class="card-title">Чакат части</h5>
+                <p class="display-6 mb-0">@Model.WaitingForPartsCount</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h5 class="card-title">Завършени</h5>
+                <p class="display-6 mb-0">@Model.CompletedCount</p>
+            </div>
+        </div>
+    </div>
 </div>
+
+<a asp-controller="ServiceRequests" asp-action="Index" class="btn btn-primary">Всички заявки</a>
+<a asp-controller="ServiceRequests" asp-action="Create" class="btn btn-outline-primary">Нова заявка</a>

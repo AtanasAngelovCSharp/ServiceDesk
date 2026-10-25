@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ServiceDesk.ViewModels.ServiceRequests;
+using ServiceDesk.ViewModels.Home;
+
 
 namespace ServiceDesk.Services.Interfaces;
 
@@ -13,4 +15,5 @@ public interface IServiceRequestService
     Task<ServiceRequestFormViewModel?> GetForEditAsync(int id);
     Task<bool> EditAsync(int id, ServiceRequestFormViewModel model);
     Task<bool> DeleteAsync(int id);
+    Task<HomeIndexViewModel> GetDashboardAsync();
 }

@@ -5,6 +5,7 @@ using ServiceDesk.ViewModels.ServiceRequests;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ServiceDesk.Data.Models;
 using ServiceDesk.Data.Models.Enums;
+using ServiceDesk.ViewModels.Home;
 
 namespace ServiceDesk.Services;
 
@@ -154,5 +155,16 @@ public class ServiceRequestService : IServiceRequestService
         context.ServiceRequests.Remove(request);
         await context.SaveChangesAsync();
         return true;
+    }
+
+    public async Task<HomeIndexViewModel> GetDashboardAsync()
+    {
+        return new HomeIndexViewModel
+        {
+            NewCount = await context.ServiceRequests.CountAsync(sr => sr.Status == RequestStatus.New),
+            InProgressCount = await context.ServiceRequests.CountAsync(sr => sr.Status == RequestStatus.InProgress),
+            WaitingForPartsCount = await context.ServiceRequests.CountAsync(sr => sr.Status == RequestStatus.WaitingForParts),
+            CompletedCount = await context.ServiceRequests.CountAsync(sr => sr.Status == RequestStatus.Completed)
+        };
     }
 }
