@@ -17,4 +17,17 @@ public class ServiceRequestsController : Controller
         var requests = await serviceRequestService.GetAllAsync();
         return View(requests);
     }
+
+    public async Task<IActionResult> Details(int id)
+    {
+        var request = await serviceRequestService.GetByIdAsync(id);
+        if (request == null)
+        {
+            return NotFound();
+        }
+        else
+        {
+            return View(request);
+        }
+    }
 }

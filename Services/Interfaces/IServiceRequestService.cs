@@ -5,4 +5,5 @@ namespace ServiceDesk.Services.Interfaces;
 public interface IServiceRequestService
 {
     Task<IEnumerable<ServiceRequestIndexViewModel>> GetAllAsync();
+    Task<ServiceRequestDetailsViewModel?> GetByIdAsync(int id);
 }

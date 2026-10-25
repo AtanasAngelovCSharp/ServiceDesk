@@ -8,6 +8,7 @@
             <th>Статус</th>
             <th>Техник</th>
             <th>Създадена на</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -19,6 +20,9 @@
                 <td>@request.Status</td>
                 <td>@(request.TechnicianName ?? "Неразпределена")</td>
                 <td>@request.CreatedOn</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@request.Id" class="btn btn-sm btn-info">Детайли</a>
+                </td>
             </tr>
         }
     </tbody>

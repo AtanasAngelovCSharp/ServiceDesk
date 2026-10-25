@@ -30,4 +30,25 @@ public class ServiceRequestService : IServiceRequestService
             })
             .ToListAsync();
     }
+
+    public async Task<ServiceRequestDetailsViewModel?> GetByIdAsync(int id)
+    {
+        return await context.ServiceRequests
+            .AsNoTracking()
+            .Where(sr => sr.Id == id)
+            .Select(sr => new ServiceRequestDetailsViewModel
+            {
+                Id = sr.Id,
+                Title = sr.Title,
+                Status = sr.Status.ToString(),
+                ProblemDescription = sr.ProblemDescription,
+                CreatedOn = sr.CreatedOn.ToString("dd.MM.yyyy"),
+                CompletedOn = sr.CompletedOn == null ? null : sr.CompletedOn.Value.ToString("dd.MM.yyyy HH:mm"),
+                EstimatedPrice = sr.EstimatedPrice,
+                Device = sr.Device.Brand + " " + sr.Device.Model,
+                CustomerName = sr.Device.Customer.FullName,
+                TechnicianName = sr.Technician == null ? null : sr.Technician.FullName
+            })
+            .FirstOrDefaultAsync();
+    }
 }
