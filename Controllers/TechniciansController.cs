@@ -35,4 +35,15 @@ public class TechniciansController : Controller
         await technicianService.CreateAsync(model);
         return RedirectToAction(nameof(Index));
     }
+
+    public async Task<IActionResult> Details(int id)
+    {
+        var technician = await technicianService.GetByIdAsync(id);
+        if (technician == null)
+        {
+            return NotFound();
+        }
+
+        return View(technician);
+    }
 }

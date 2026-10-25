@@ -13,6 +13,7 @@
             <th>Специализация</th>
             <th>Телефон</th>
             <th>Активни заявки</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -23,6 +24,8 @@
                 <td>@(technician.Specialization ?? "—")</td>
                 <td>@technician.PhoneNumber</td>
                 <td>@technician.ActiveRequestsCount</td>
+                <td>@technician.ActiveRequestsCount</td>
+                <td><a asp-action="Details" asp-route-id="@technician.Id" class="btn btn-sm btn-info">Детайли</a></td>
             </tr>
         }
     </tbody>
