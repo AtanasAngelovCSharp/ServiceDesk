@@ -74,4 +74,29 @@ public class TechniciansController : Controller
 
         return RedirectToAction(nameof(Details), new { id });
     }
+
+    public async Task<IActionResult> Delete(int id)
+    {
+        var technician = await technicianService.GetByIdAsync(id);
+        if (technician == null)
+        {
+            return NotFound();
+        }
+
+        return View(technician);
+    }
+
+    [HttpPost]
+    [ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        bool success = await technicianService.DeleteAsync(id);
+        if (!success)
+        {
+            return NotFound();
+        }
+
+        return RedirectToAction(nameof(Index));
+    }
 }

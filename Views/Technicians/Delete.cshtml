@@ -1,0 +1,57 @@
+@model ServiceDesk.ViewModels.Technicians.TechnicianDetailsViewModel
+@{
+    ViewData["Title"] = "Изтриване на техник";
+}
+
+<h1>@ViewData["Title"]</h1>
+<h4>@Model.FullName</h4>
+
+<div class="alert alert-danger">Сигурни ли сте, че искате да изтриете този техник? Заявките на техника ще станат
+    неразпределени.</div>
+
+    <dl class="row">
+        <dt class="col-sm-3">Специализация</dt>
+        <dd class="col-sm-9">@(Model.Specialization ?? "—")</dd>
+        <dt class="col-sm-3">Телефон</dt>
+        <dd class="col-sm-9">@Model.PhoneNumber</dd>
+    </dl>
+
+    <h4>Заявки</h4>
+    @if (!Model.Requests.Any())
+    {
+        <p class="text-muted">Техникът няма заявки.</p>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Заглавие</th>
+                    <th>Устройство</th>
+                    <th>Статус</th>
+                    <th>Създадена</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var request in Model.Requests)
+                {
+                    <tr>
+                        <td>
+                            <a asp-controller="ServiceRequests" asp-action="Details" asp-route-id="@request.Id">@request.Title</a>
+                        </td>
+                        <td>@request.Device</td>
+                        <td>
+                            <partial name="_StatusBadge" model="request.Status" />
+                        </td>
+                        <td>@request.CreatedOn</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Изтрий</button>
+        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Отказ</a>
+    </form>

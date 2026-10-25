@@ -9,4 +9,5 @@ public interface ITechnicianService
     Task<TechnicianDetailsViewModel?> GetByIdAsync(int id);
     Task<TechnicianFormViewModel?> GetForEditAsync(int id);
     Task<bool> EditAsync(int id, TechnicianFormViewModel model);
+    Task<bool> DeleteAsync(int id);
 }

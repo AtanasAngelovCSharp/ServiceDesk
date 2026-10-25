@@ -101,4 +101,24 @@ public class TechnicianService : ITechnicianService
         await context.SaveChangesAsync();
         return true;
     }
+
+    public async Task<bool> DeleteAsync(int id)
+    {
+        var technician = await context.Technicians
+            .Include(t => t.ServiceRequests)
+            .FirstOrDefaultAsync(t => t.Id == id);
+        if (technician == null)
+        {
+            return false;
+        }
+
+        foreach (var request in technician.ServiceRequests)
+        {
+            request.TechnicianId = null;
+        }
+
+        context.Technicians.Remove(technician);
+        await context.SaveChangesAsync();
+        return true;
+    }
 }
