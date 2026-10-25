@@ -22,7 +22,7 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
                   Id = 2,
                   FullName = "Адроит Електроникс ЕООД",
                   PhoneNumber = "+35988634598",
-                  Address = "Ул. Граг Игратиев №4"
+                  Address = "Ул. Граг Игнатиев №4"
               },
 
             new Customer

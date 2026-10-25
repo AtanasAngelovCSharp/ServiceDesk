@@ -1,0 +1,25 @@
+@model IEnumerable<ServiceDesk.ViewModels.ServiceRequests.ServiceRequestIndexViewModel>
+<h1>Сервизни заявки</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Заглавие</th>
+            <th>Устройство</th>
+            <th>Статус</th>
+            <th>Техник</th>
+            <th>Създадена на</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model)
+        {
+            <tr>
+                <td>@request.Title</td>
+                <td>@request.Device</td>
+                <td>@request.Status</td>
+                <td>@(request.TechnicianName ?? "Неразпределена")</td>
+                <td>@request.CreatedOn</td>
+            </tr>
+        }
+    </tbody>
+</table>
