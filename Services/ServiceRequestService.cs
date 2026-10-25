@@ -98,4 +98,48 @@ public class ServiceRequestService : IServiceRequestService
         await context.ServiceRequests.AddAsync(request);
         await context.SaveChangesAsync();
     }
+
+    public async Task<ServiceRequestFormViewModel?> GetForEditAsync(int id)
+    {
+        return await context.ServiceRequests
+            .AsNoTracking()
+            .Where(sr => sr.Id == id)
+            .Select(sr => new ServiceRequestFormViewModel
+            {
+                Title = sr.Title,
+                Status = sr.Status,
+                ProblemDescription = sr.ProblemDescription,
+                EstimatedPrice = sr.EstimatedPrice,
+                DeviceId = sr.DeviceId,
+                TechnicianId = sr.TechnicianId
+            })
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<bool> EditAsync(int id, ServiceRequestFormViewModel model)
+    {
+        var request = await context.ServiceRequests.FindAsync(id);
+        if (request == null)
+        {
+            return false;
+        }
+
+        request.Title = model.Title;
+        request.ProblemDescription = model.ProblemDescription;
+        request.Status = model.Status;
+        request.EstimatedPrice = model.EstimatedPrice;
+        request.DeviceId = model.DeviceId;
+        request.TechnicianId = model.TechnicianId;
+
+        if (request.Status == RequestStatus.Completed && request.CompletedOn == null)
+        {
+            request.CompletedOn = DateTime.Now;
+        }
+        else if (request.Status != RequestStatus.Completed)
+        {
+            request.CompletedOn = null;
+        }
+        await context.SaveChangesAsync();
+        return true;
+    }
 }

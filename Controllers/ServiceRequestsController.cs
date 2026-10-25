@@ -55,4 +55,37 @@ public class ServiceRequestsController : Controller
         await serviceRequestService.CreateAsync(model);
         return RedirectToAction(nameof(Index));
     }
+
+    public async Task<IActionResult> Edit(int id)
+    {
+        var model = await serviceRequestService.GetForEditAsync(id);
+        if (model == null)
+        {
+            return NotFound();
+        }
+
+        model.Devices = await serviceRequestService.GetDevicesAsync();
+        model.Technicians = await serviceRequestService.GetTechniciansAsync();
+        return View(model);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, ServiceRequestFormViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            model.Devices = await serviceRequestService.GetDevicesAsync();
+            model.Technicians = await serviceRequestService.GetTechniciansAsync();
+            return View(model);
+        }
+
+        bool success = await serviceRequestService.EditAsync(id, model);
+        if (!success)
+        {
+            return NotFound();
+        }
+
+        return RedirectToAction(nameof(Details), new { id });
+    }
 }

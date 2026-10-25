@@ -10,4 +10,6 @@ public interface IServiceRequestService
     Task<IEnumerable<SelectListItem>> GetDevicesAsync();
     Task<IEnumerable<SelectListItem>> GetTechniciansAsync();
     Task CreateAsync(ServiceRequestFormViewModel model);
+    Task<ServiceRequestFormViewModel?> GetForEditAsync(int id);
+    Task<bool> EditAsync(int id, ServiceRequestFormViewModel model);
 }
