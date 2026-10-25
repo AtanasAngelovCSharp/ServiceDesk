@@ -5,4 +5,5 @@ namespace ServiceDesk.Services.Interfaces;
 public interface ITechnicianService
 {
     Task<IEnumerable<TechnicianIndexViewModel>> GetAllAsync();
+    Task CreateAsync(TechnicianFormViewModel model);
 }

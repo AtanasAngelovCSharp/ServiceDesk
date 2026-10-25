@@ -3,6 +3,7 @@ using ServiceDesk.Data;
 using ServiceDesk.Data.Models.Enums;
 using ServiceDesk.Services.Interfaces;
 using ServiceDesk.ViewModels.Technicians;
+using ServiceDesk.Data.Models;
 
 namespace ServiceDesk.Services;
 
@@ -30,5 +31,18 @@ public class TechnicianService : ITechnicianService
                 PhoneNumber = t.PhoneNumber
             })
             .ToListAsync();
+    }
+
+    public async Task CreateAsync(TechnicianFormViewModel model)
+    {
+        var technician = new Technician
+        {
+            FullName = model.FullName,
+            Specialization = model.Specialization,
+            PhoneNumber = model.PhoneNumber
+        };
+
+        await context.Technicians.AddAsync(technician);
+        await context.SaveChangesAsync();
     }
 }

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ServiceDesk.Services.Interfaces;
+using ServiceDesk.ViewModels.Technicians;
 
 namespace ServiceDesk.Controllers;
 
@@ -16,5 +17,22 @@ public class TechniciansController : Controller
     {
         var technicians = await technicianService.GetAllAsync();
         return View(technicians);
+    }
+
+    public IActionResult Create()
+    {
+        return View(new TechnicianFormViewModel());
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(TechnicianFormViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+        await technicianService.CreateAsync(model);
+        return RedirectToAction(nameof(Index));
     }
 }
