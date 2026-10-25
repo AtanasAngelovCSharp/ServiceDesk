@@ -46,4 +46,32 @@ public class TechniciansController : Controller
 
         return View(technician);
     }
+
+    public async Task<IActionResult> Edit(int id)
+    {
+        var model = await technicianService.GetForEditAsync(id);
+        if (model == null)
+        {
+            return NotFound();
+        }
+        return View(model);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, TechnicianFormViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        bool success = await technicianService.EditAsync(id, model);
+        if (!success)
+        {
+            return NotFound();
+        }
+
+        return RedirectToAction(nameof(Details), new { id });
+    }
 }

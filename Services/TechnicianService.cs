@@ -73,4 +73,32 @@ public class TechnicianService : ITechnicianService
             })
             .FirstOrDefaultAsync();
     }
+    public async Task<TechnicianFormViewModel?> GetForEditAsync(int id)
+    {
+        return await context.Technicians
+            .AsNoTracking()
+            .Where(t => t.Id == id)
+            .Select(t => new TechnicianFormViewModel
+            {
+                FullName = t.FullName,
+                Specialization = t.Specialization,
+                PhoneNumber = t.PhoneNumber
+            })
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<bool> EditAsync(int id, TechnicianFormViewModel model)
+    {
+        var technician = await context.Technicians.FindAsync(id);
+        if (technician == null)
+        {
+            return false;
+        }
+
+        technician.FullName = model.FullName;
+        technician.Specialization = model.Specialization;
+        technician.PhoneNumber = model.PhoneNumber;
+        await context.SaveChangesAsync();
+        return true;
+    }
 }
