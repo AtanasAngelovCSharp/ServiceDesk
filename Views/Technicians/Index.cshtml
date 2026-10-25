@@ -1,0 +1,28 @@
+@model IEnumerable<ServiceDesk.ViewModels.Technicians.TechnicianIndexViewModel>
+@{
+    ViewData["Title"] = "Техници";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Име</th>
+            <th>Специализация</th>
+            <th>Телефон</th>
+            <th>Активни заявки</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var technician in Model)
+        {
+            <tr>
+                <td>@technician.FullName</td>
+                <td>@(technician.Specialization ?? "—")</td>
+                <td>@technician.PhoneNumber</td>
+                <td>@technician.ActiveRequestsCount</td>
+            </tr>
+        }
+    </tbody>
+</table>
