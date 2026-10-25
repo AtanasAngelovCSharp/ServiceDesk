@@ -12,4 +12,10 @@ public class ApplicationDbContext : DbContext
     public DbSet<Device> Devices { get; set; } = null!;
     public DbSet<Technician> Technicians { get; set; } = null!;
     public DbSet<ServiceRequest> ServiceRequests { get; set; } = null!;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+        base.OnModelCreating(modelBuilder);
+    }
 }

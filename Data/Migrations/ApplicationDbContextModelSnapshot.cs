@@ -51,6 +51,30 @@ namespace ServiceDesk.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "atanas.angelov.2006@gmail.com",
+                            FullName = "Атанас Ангелов",
+                            PhoneNumber = "+359876658866"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Ул. Граг Игратиев №4",
+                            FullName = "Адроит Електроникс ЕООД",
+                            PhoneNumber = "+35988634598"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "Бул. Дунав №190",
+                            Email = "g.georgiev.77@gmail.com",
+                            FullName = "Георги Георгиев",
+                            PhoneNumber = "+359888907654"
+                        });
                 });
 
             modelBuilder.Entity("ServiceDesk.Data.Models.Device", b =>
@@ -86,6 +110,62 @@ namespace ServiceDesk.Data.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Devices");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Brand = "Kyocera",
+                            CustomerId = 2,
+                            Model = "ECOSYS M2540dn",
+                            SerialNumber = "VCF8Z12345",
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Brand = "Kyocera",
+                            CustomerId = 1,
+                            Model = "ECOSYS M2540dn",
+                            SerialNumber = "ECO321123",
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Brand = "HP",
+                            CustomerId = 3,
+                            Model = "LaserJet Pro M404dn",
+                            SerialNumber = "LJ12345",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Brand = "Lenovo",
+                            CustomerId = 1,
+                            Model = "ThinkPad T14",
+                            SerialNumber = "982798834",
+                            Type = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Brand = "Dell",
+                            CustomerId = 2,
+                            Model = "OptiPlex 7090",
+                            SerialNumber = "DELL67690096",
+                            Type = 3
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Brand = "Lenovo",
+                            CustomerId = 3,
+                            Model = "ThinkPad T16",
+                            SerialNumber = "45677654",
+                            Type = 2
+                        });
                 });
 
             modelBuilder.Entity("ServiceDesk.Data.Models.ServiceRequest", b =>
@@ -131,6 +211,74 @@ namespace ServiceDesk.Data.Migrations
                     b.HasIndex("TechnicianId");
 
                     b.ToTable("ServiceRequests");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CompletedOn = new DateTime(2026, 10, 21, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(2026, 10, 20, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            DeviceId = 1,
+                            EstimatedPrice = 85.50m,
+                            ProblemDescription = "Хартията засяда при двустранен печат, на дисплея излиза грешка J0511.",
+                            Status = 3,
+                            TechnicianId = 1,
+                            Title = "Засядане на хартия"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedOn = new DateTime(2026, 10, 22, 10, 15, 0, 0, DateTimeKind.Unspecified),
+                            DeviceId = 4,
+                            EstimatedPrice = 120m,
+                            ProblemDescription = "Лаптопът работи само на ток, батерията стои на 0% и не се зарежда.",
+                            Status = 1,
+                            TechnicianId = 3,
+                            Title = "Не зарежда батерията"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedOn = new DateTime(2026, 10, 21, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeviceId = 2,
+                            EstimatedPrice = 210m,
+                            ProblemDescription = "Копията излизат бледи и с ивици, принтът от компютър е нормален.",
+                            Status = 2,
+                            TechnicianId = 1,
+                            Title = "Бледо копиране"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedOn = new DateTime(2026, 10, 24, 16, 45, 0, 0, DateTimeKind.Unspecified),
+                            DeviceId = 5,
+                            EstimatedPrice = 0m,
+                            ProblemDescription = "Компютърът не се включва, вентилаторите се завъртат за секунда и спират.",
+                            Status = 0,
+                            Title = "Не стартира"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CompletedOn = new DateTime(2026, 10, 19, 12, 35, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(2026, 10, 18, 9, 50, 0, 0, DateTimeKind.Unspecified),
+                            DeviceId = 3,
+                            EstimatedPrice = 65m,
+                            ProblemDescription = "При печат по листа остават черни петна на равни разстояния.",
+                            Status = 3,
+                            TechnicianId = 2,
+                            Title = "Петна по листа"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedOn = new DateTime(2026, 10, 25, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            DeviceId = 6,
+                            EstimatedPrice = 0m,
+                            ProblemDescription = "Лаптопът се изключва сам след около 20 минути работа, долният капак е много горещ.",
+                            Status = 0,
+                            Title = "Прегрява и се изключва"
+                        });
                 });
 
             modelBuilder.Entity("ServiceDesk.Data.Models.Technician", b =>
@@ -158,6 +306,29 @@ namespace ServiceDesk.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Technicians");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FullName = "Петър Иванов",
+                            PhoneNumber = "+359888100200",
+                            Specialization = "Лазерни принтери"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FullName = "Наско Ангелов",
+                            PhoneNumber = "+35988634598",
+                            Specialization = "Мастилено-струйни принтери"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FullName = "Георги Георгиев",
+                            PhoneNumber = "+359888907654",
+                            Specialization = "Лаптопи/Настолни Компютри"
+                        });
                 });
 
             modelBuilder.Entity("ServiceDesk.Data.Models.Device", b =>
