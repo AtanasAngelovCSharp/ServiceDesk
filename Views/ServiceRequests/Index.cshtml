@@ -19,7 +19,9 @@
             <tr>
                 <td>@request.Title</td>
                 <td>@request.Device</td>
-                <td>@request.Status</td>
+                <td>
+                    <partial name="_StatusBadge" model="request.Status" />
+                </td>
                 <td>@(request.TechnicianName ?? "Неразпределена")</td>
                 <td>@request.CreatedOn</td>
                 <td>

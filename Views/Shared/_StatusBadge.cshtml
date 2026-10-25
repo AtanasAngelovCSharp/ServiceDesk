@@ -1,0 +1,15 @@
+@model string
+
+@{
+    var (cssClass, text) = Model switch
+    {
+        "New" => ("bg-primary", "Нова"),
+        "InProgress" => ("bg-warning text-dark", "В процес"),
+        "WaitingForParts" => ("bg-info text-dark", "Чака части"),
+        "Completed" => ("bg-success", "Завършена"),
+        "Cancelled" => ("bg-danger", "Отказана"),
+        _ => ("bg-secondary", Model)
+    };
+}
+
+<span class="badge @cssClass">@text</span>
