@@ -13,9 +13,11 @@ A service center registers incoming repair requests, links each one to the custo
   - Create and edit forms with drop-downs for device, technician and status
   - Delete with a confirmation page
   - The completion date is set automatically when a request is marked as `Completed` and cleared if it is reopened
-- **Technicians**
+- **Technicians (full CRUD)**
   - List of technicians with the number of their active (not completed / not cancelled) requests
-  - Add a new technician
+  - Details page with all requests assigned to the technician
+  - Create and edit forms with validation (name length, phone number format)
+  - Delete with a confirmation page — the technician's requests are kept and become unassigned
 - **Validation** — server-side (Data Annotations + `ModelState`) and client-side (jQuery Validation), with error messages in Bulgarian
 - **Seed data** — the database is created with sample customers, devices, technicians and requests, so the application is not empty on first run
 
