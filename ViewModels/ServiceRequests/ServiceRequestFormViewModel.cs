@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ServiceDesk.Data.Models.Enums;
 using static ServiceDesk.Common.ValidationConstants;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ServiceDesk.ViewModels.ServiceRequests;
 
@@ -20,6 +20,7 @@ public class ServiceRequestFormViewModel
     [Required(ErrorMessage = "Статусът е задължителен.")]
     public RequestStatus Status { get; set; }
 
+    [Required(ErrorMessage = "Цената е задължителна.")]
     [Range(EstimatedPriceMinValue, EstimatedPriceMaxValue,
     ErrorMessage = "Цената трябва да е между {1} и {2} €.")]
     public decimal EstimatedPrice { get; set; }

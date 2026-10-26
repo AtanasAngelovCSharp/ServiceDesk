@@ -1,16 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using ServiceDesk.Data;
+using ServiceDesk.Data.Models;
 using ServiceDesk.Data.Models.Enums;
 using ServiceDesk.Services.Interfaces;
-using ServiceDesk.ViewModels.Technicians;
-using ServiceDesk.Data.Models;
 using ServiceDesk.ViewModels.ServiceRequests;
+using ServiceDesk.ViewModels.Technicians;
 
 namespace ServiceDesk.Services;
 
 public class TechnicianService : ITechnicianService
 {
     private readonly ApplicationDbContext context;
+
     public TechnicianService(ApplicationDbContext context)
     {
         this.context = context;
@@ -73,6 +74,7 @@ public class TechnicianService : ITechnicianService
             })
             .FirstOrDefaultAsync();
     }
+
     public async Task<TechnicianFormViewModel?> GetForEditAsync(int id)
     {
         return await context.Technicians
@@ -98,6 +100,7 @@ public class TechnicianService : ITechnicianService
         technician.FullName = model.FullName;
         technician.Specialization = model.Specialization;
         technician.PhoneNumber = model.PhoneNumber;
+
         await context.SaveChangesAsync();
         return true;
     }
@@ -107,6 +110,7 @@ public class TechnicianService : ITechnicianService
         var technician = await context.Technicians
             .Include(t => t.ServiceRequests)
             .FirstOrDefaultAsync(t => t.Id == id);
+
         if (technician == null)
         {
             return false;

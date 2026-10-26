@@ -1,11 +1,11 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ServiceDesk.Data;
-using ServiceDesk.Services.Interfaces;
-using ServiceDesk.ViewModels.ServiceRequests;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using ServiceDesk.Data.Models;
 using ServiceDesk.Data.Models.Enums;
+using ServiceDesk.Services.Interfaces;
 using ServiceDesk.ViewModels.Home;
+using ServiceDesk.ViewModels.ServiceRequests;
 
 namespace ServiceDesk.Services;
 
@@ -140,6 +140,7 @@ public class ServiceRequestService : IServiceRequestService
         {
             request.CompletedOn = null;
         }
+
         await context.SaveChangesAsync();
         return true;
     }

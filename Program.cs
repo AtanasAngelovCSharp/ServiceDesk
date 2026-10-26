@@ -3,7 +3,6 @@ using ServiceDesk.Data;
 using ServiceDesk.Services;
 using ServiceDesk.Services.Interfaces;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,7 +15,18 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IServiceRequestService, ServiceRequestService>();
 builder.Services.AddScoped<ITechnicianService, TechnicianService>();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    // Bulgarian texts for the built-in model binding errors (empty or non-numeric values)
+    var messages = options.ModelBindingMessageProvider;
+    messages.SetValueMustNotBeNullAccessor(_ => "Полето е задължително.");
+    messages.SetMissingBindRequiredValueAccessor(_ => "Полето е задължително.");
+    messages.SetAttemptedValueIsInvalidAccessor((value, _) => $"Стойността „{value}“ е невалидна.");
+    messages.SetValueIsInvalidAccessor(value => $"Стойността „{value}“ е невалидна.");
+    messages.SetValueMustBeANumberAccessor(_ => "Полето трябва да е число.");
+    messages.SetNonPropertyAttemptedValueIsInvalidAccessor(value => $"Стойността „{value}“ е невалидна.");
+    messages.SetNonPropertyValueMustBeANumberAccessor(() => "Полето трябва да е число.");
+});
 
 var app = builder.Build();
 

@@ -1,7 +1,7 @@
-using ServiceDesk.Data.Models.Enums;
 using System.ComponentModel.DataAnnotations;
-using static ServiceDesk.Common.ValidationConstants;
 using System.ComponentModel.DataAnnotations.Schema;
+using ServiceDesk.Data.Models.Enums;
+using static ServiceDesk.Common.ValidationConstants;
 
 namespace ServiceDesk.Data.Models;
 

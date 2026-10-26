@@ -32,6 +32,7 @@ public class TechniciansController : Controller
         {
             return View(model);
         }
+
         await technicianService.CreateAsync(model);
         return RedirectToAction(nameof(Index));
     }
@@ -54,6 +55,7 @@ public class TechniciansController : Controller
         {
             return NotFound();
         }
+
         return View(model);
     }
 

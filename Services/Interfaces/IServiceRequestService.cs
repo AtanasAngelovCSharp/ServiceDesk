@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ServiceDesk.ViewModels.ServiceRequests;
 using ServiceDesk.ViewModels.Home;
-
+using ServiceDesk.ViewModels.ServiceRequests;
 
 namespace ServiceDesk.Services.Interfaces;
 
