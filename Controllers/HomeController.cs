@@ -7,12 +7,10 @@ namespace ServiceDesk.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
     private readonly IServiceRequestService serviceRequestService;
 
-    public HomeController(ILogger<HomeController> logger, IServiceRequestService serviceRequestService)
+    public HomeController(IServiceRequestService serviceRequestService)
     {
-        _logger = logger;
         this.serviceRequestService = serviceRequestService;
     }
 
