@@ -167,4 +167,14 @@ public class ServiceRequestService : IServiceRequestService
             CompletedCount = await context.ServiceRequests.CountAsync(sr => sr.Status == RequestStatus.Completed)
         };
     }
+
+    public async Task<bool> DeviceExistsAsync(int id)
+    {
+        return await context.Devices.AnyAsync(d => d.Id == id);
+    }
+
+    public async Task<bool> TechnicianExistsAsync(int id)
+    {
+        return await context.Technicians.AnyAsync(t => t.Id == id);
+    }
 }

@@ -16,4 +16,6 @@ public interface IServiceRequestService
     Task<bool> EditAsync(int id, ServiceRequestFormViewModel model);
     Task<bool> DeleteAsync(int id);
     Task<HomeIndexViewModel> GetDashboardAsync();
+    Task<bool> DeviceExistsAsync(int id);
+    Task<bool> TechnicianExistsAsync(int id);
 }

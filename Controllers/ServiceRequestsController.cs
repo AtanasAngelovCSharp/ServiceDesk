@@ -45,6 +45,16 @@ public class ServiceRequestsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(ServiceRequestFormViewModel model)
     {
+        if (!await serviceRequestService.DeviceExistsAsync(model.DeviceId))
+        {
+            ModelState.AddModelError(nameof(model.DeviceId), "Избраното устройство не съществува.");
+        }
+
+        if (model.TechnicianId.HasValue && !await serviceRequestService.TechnicianExistsAsync(model.TechnicianId.Value))
+        {
+            ModelState.AddModelError(nameof(model.TechnicianId), "Избраният техник не съществува.");
+        }
+
         if (!ModelState.IsValid)
         {
             model.Devices = await serviceRequestService.GetDevicesAsync();
@@ -73,6 +83,16 @@ public class ServiceRequestsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, ServiceRequestFormViewModel model)
     {
+        if (!await serviceRequestService.DeviceExistsAsync(model.DeviceId))
+        {
+            ModelState.AddModelError(nameof(model.DeviceId), "Избраното устройство не съществува.");
+        }
+
+        if (model.TechnicianId.HasValue && !await serviceRequestService.TechnicianExistsAsync(model.TechnicianId.Value))
+        {
+            ModelState.AddModelError(nameof(model.TechnicianId), "Избраният техник не съществува.");
+        }
+
         if (!ModelState.IsValid)
         {
             model.Devices = await serviceRequestService.GetDevicesAsync();
