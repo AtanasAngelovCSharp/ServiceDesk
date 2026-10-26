@@ -63,7 +63,7 @@ namespace ServiceDesk.Data.Migrations
                         new
                         {
                             Id = 2,
-                            Address = "Ул. Граг Игратиев №4",
+                            Address = "Ул. Граф Игнатиев №4",
                             FullName = "Адроит Електроникс ЕООД",
                             PhoneNumber = "+35988634598"
                         },
