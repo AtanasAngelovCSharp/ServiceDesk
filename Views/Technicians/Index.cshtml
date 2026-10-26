@@ -6,27 +6,30 @@
 <h1>@ViewData["Title"]</h1>
 <a asp-action="Create" class="btn btn-primary mb-3">Нов техник</a>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Име</th>
-            <th>Специализация</th>
-            <th>Телефон</th>
-            <th>Активни заявки</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var technician in Model)
-        {
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>@technician.FullName</td>
-                <td>@(technician.Specialization ?? "—")</td>
-                <td>@technician.PhoneNumber</td>
-                <td>@technician.ActiveRequestsCount</td>
-                <td>@technician.ActiveRequestsCount</td>
-                <td><a asp-action="Details" asp-route-id="@technician.Id" class="btn btn-sm btn-info">Детайли</a></td>
+                <th>Име</th>
+                <th>Специализация</th>
+                <th>Телефон</th>
+                <th>Активни заявки</th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var technician in Model)
+            {
+                <tr>
+                    <td>@technician.FullName</td>
+                    <td>@(technician.Specialization ?? "—")</td>
+                    <td>@technician.PhoneNumber</td>
+                    <td>@technician.ActiveRequestsCount</td>
+                    <td>@technician.ActiveRequestsCount</td>
+                    <td><a asp-action="Details" asp-route-id="@technician.Id" class="btn btn-sm btn-info">Детайли</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

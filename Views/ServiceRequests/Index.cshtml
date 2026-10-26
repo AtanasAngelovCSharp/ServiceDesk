@@ -1,33 +1,40 @@
 @model IEnumerable<ServiceDesk.ViewModels.ServiceRequests.ServiceRequestIndexViewModel>
-<h1>Сервизни заявки</h1>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Заглавие</th>
-            <th>Устройство</th>
-            <th>Статус</th>
-            <th>Техник</th>
-            <th>Създадена на</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <a asp-action="Create" class="btn btn-primary mb-3">Нова заявка</a>
-        @foreach (var request in Model)
-        {
-            
+@{
+    ViewData["Title"] = "Сервизни заявки";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<a asp-action="Create" class="btn btn-primary mb-3">Нова заявка</a>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>@request.Title</td>
-                <td>@request.Device</td>
-                <td>
-                    <partial name="_StatusBadge" model="request.Status" />
-                </td>
-                <td>@(request.TechnicianName ?? "Неразпределена")</td>
-                <td>@request.CreatedOn</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@request.Id" class="btn btn-sm btn-info">Детайли</a>
-                </td>
+                <th>Заглавие</th>
+                <th>Устройство</th>
+                <th>Статус</th>
+                <th>Техник</th>
+                <th>Създадена на</th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var request in Model)
+            {
+                <tr>
+                    <td>@request.Title</td>
+                    <td>@request.Device</td>
+                    <td>
+                        <partial name="_StatusBadge" model="request.Status" />
+                    </td>
+                    <td>@(request.TechnicianName ?? "Неразпределена")</td>
+                    <td>@request.CreatedOn</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@request.Id" class="btn btn-sm btn-info">Детайли</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
